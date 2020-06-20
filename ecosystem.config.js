@@ -27,7 +27,7 @@ module.exports = {
       repo : 'git@github.com:js-shag-course/stepchat.git',
       path : '/home/stepchat/app',
       ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no'],
-      postDeploy : 'cd ./server && npm i && pm2 startOrRestart all --env production',
+      postDeploy : 'cd /home/stepchat/app/source/server && npm i && cd ../ && pm2 startOrRestart all --env production',
       env  : {
         NODE_ENV: 'production'
       }
