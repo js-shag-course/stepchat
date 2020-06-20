@@ -22,10 +22,10 @@ module.exports = {
   deploy: {
     production : {
       user : 'stepchat',
-      host : '104.248.90.46',
+      host : 'stepchat.site',
       ref  : 'origin/master',
       repo : 'git@github.com:js-shag-course/stepchat.git',
-      path : '/home/stepchat',
+      path : '/home/stepchat/app',
       ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no'],
       postDeploy : 'pm2 startOrRestart all --env production',
       env  : {
