@@ -23,7 +23,7 @@ module.exports = {
     production : {
       user : 'stepchat',
       host : 'stepchat.site',
-      ref  : 'feature/deploy_settings', // origin/master
+      ref  : 'origin/master',
       repo : 'git@github.com:js-shag-course/stepchat.git',
       path : '/home/stepchat/app',
       ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no'],
