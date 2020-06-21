@@ -132,6 +132,10 @@ app.post('/users', (req, res) => {
     res.sendStatus(200)
 })
 
+app.get('/chats/getMessages',(req,res) =>{
+    res.setHeader('Content-Type', 'application/json')
+    res.send(JSON.stringify(chats[Number(req.query.id)].messagesHistory))
+})
 app.listen(port, () => {
     console.log('server strting on port ' + port);
 })
