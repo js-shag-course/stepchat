@@ -3,6 +3,7 @@ const
     bodyParser = require('body-parser'),
     app = express(),
     port = 3000
+    validation = require('./validation')
 ;
 
 // crutches
@@ -53,6 +54,7 @@ const chats = []
 app.get('/chats', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(chats))
+    
 })
 
 app.get('/chats/filter', (req, res) => {
@@ -75,6 +77,8 @@ app.post('/chats', (req, res) => {
     })
     res.sendStatus(200)
 })
+module.exports.chats = chats
+
 
 
 /* user example
@@ -104,7 +108,30 @@ app.post('/chats', (req, res) => {
 
 */
 
-const users = []
+const users = [{
+    "id": 1,
+    "name": "name",
+    "password": "secretPassword",
+    "friends": [
+        {
+            "id": 1,
+            "name": "name"
+        }
+    ],
+    "chats": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+]
+module.exports.users = users
 
 app.get('/users', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
@@ -115,12 +142,11 @@ app.get('/users/filter', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     // request url example       
     //  users/filter?name=Name&id=104
-
+    unique("ads");
     res.send(JSON.stringify(users.find(user => {
         return user.id === Number(req.query.id) || user.name === req.query.name
     })))
 })
-
 app.post('/users', (req, res) => {
     users.push({
         id: ++usersIdIncrementer,
