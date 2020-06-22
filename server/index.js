@@ -108,29 +108,7 @@ module.exports.chats = chats
 
 */
 
-const users = [{
-    "id": 1,
-    "name": "name",
-    "password": "secretPassword",
-    "friends": [
-        {
-            "id": 1,
-            "name": "name"
-        }
-    ],
-    "chats": [
-        {
-            "id": 1
-        },
-        {
-            "id": 2
-        },
-        {
-            "id": 3
-        }
-    ]
-}
-]
+const users = []
 module.exports.users = users
 
 app.get('/users', (req, res) => {
@@ -142,7 +120,6 @@ app.get('/users/filter', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     // request url example       
     //  users/filter?name=Name&id=104
-    unique("ads");
     res.send(JSON.stringify(users.find(user => {
         return user.id === Number(req.query.id) || user.name === req.query.name
     })))
