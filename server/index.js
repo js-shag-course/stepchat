@@ -2,7 +2,8 @@ const
     express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
-    port = 3000
+    port = 3000,
+    validation = require('./validation')
 ;
 
 // crutches
@@ -17,139 +18,182 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
-/* chat example
-
- {
-    "id": 1,
-	"participants": [
-			{
-					"id": 2,
-					"name": "name"
-			}
-	],
-	"admins": [
-			{
-					"id": 2,
-					"name": "name"
-			}
-	],
-	"messagesHistory": [
-			{
-					"sender": {
-							"id": 2,
-							"name": "name"
-					},
-					"timeOfSend": "12:31:2020 PM 12:00",
-					"messageBody": "Hello World!!!"
-			}
-	]
-}
-
-*/
-
-const chats = []
+let chats = []
 
 app.get('/chats', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(chats))
+    
 })
 
-app.get('/chats/filter', (req, res) => {
+app.get('/chats/:id', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
-    // request url example       
-    //  chats/filter?id=104
-
-    res.send(JSON.stringify(chats.find(chat => {
-        return chat.id === Number(req.query.id)
-    })))
-})
-
-
-app.post('/chats', (req, res) => 
-{
-    if(chats.push({
-                    id: ++chatsIdIncrementer,
-                    participants: req.body.participants,
-                    admins: req.body.admins,
-                    messagesHistory: req.body.messagesHistory
-                } )
-        )
-        
-        {
-            res.json({"New chat created:" :chats[chats.length-1]})
-        }
-        else{
-            res.json("New chat don't created")
-        }
-})
-
-
-/* user example
-
-    {
-        "id": 1,
-        "name": "name",
-        "password": "secretPassword",
-        "friends": [
-            {
-                "id": 1,
-                "name": "name"
-            }
-        ],
-        "chats": [
-            {
-                "id": 1
-            },
-            {
-                "id": 2
-            },
-            {
-                "id": 3
-            }
-        ]
+    
+    try{
+        let chat = chats.find(chat => {
+            return chat.id === Number(req.params.id)
+        })
+        if(!chat) throw new Error('there is no such chat')
+        res.send(JSON.stringify(chat))
     }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
 
-*/
+app.put('/chats/:id', (req, res) => {
+    try{
+        let chat = chats.find(chat => {
+            return chat.id === Number(req.params.id)
+        })
+        if(!chat) throw new Error('there is no such chat')
 
-const users = []
+        if (req.body.title) chat.title = req.body.title
+        if (req.body.users) { req.body.users.forEach(element => { chat.users.push(element) })}
+        if (req.body.admins) { req.body.admins.forEach(element => { chat.admins.push(element) })}
+        if (req.body.messages) { req.body.messages.forEach(element => { chat.messages.push(element) })}
+
+        res.sendStatus(200)
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
+
+app.delete('/chats/:id', (req, res) => {
+    try{
+        let chat = chats.find(chat => {
+            return chat.id === Number(req.params.id)
+        })
+        if(!chat) throw new Error('there is no such chat')
+
+        chats = chats.filter(chat => {
+            return chat.id !== Number(req.params.id)
+        })
+        res.status(200).send(chat)
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
+
+
+app.post('/chats', (req, res) => {
+    try{
+        if(req.body.title &&
+            req.body.users &&
+            req.body.admins &&
+            req.body.messages // need to add other conditions
+        ){
+            let chat = {
+                id: ++chatsIdIncrementer,
+                title: req.body.title,
+                users: req.body.users,
+                admins: req.body.admins,
+                messages: req.body.messages
+            }
+            chats.push(chat)
+            res.status(200).send(JSON.stringify(chat))
+        } else throw new Error('some of the options are empty')
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
+module.exports.chats = chats
+
+
+let users = []
+module.exports.users = users
 
 app.get('/users', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(users))
 })
 
-app.get('/users/filter', (req, res) => {
+app.get('/users/:id', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
-    // request url example       
-    //  users/filter?name=Name&id=104
+    
+    try{
+        let user = users.find(user => {
+            return user.id === Number(req.params.id)
+        })
+        if(!user) throw new Error('there is no such user')
+        res.send(JSON.stringify(user))
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
 
+    /* for filter
     res.send(JSON.stringify(users.find(user => {
         return user.id === Number(req.query.id) || user.name === req.query.name
-    })))
+    }))) */
 })
 
-app.post('/users', (req, res) => 
-{
-    if(users.push({
-                    id: ++usersIdIncrementer,
-                    name: req.body.name,
-                    password: req.body.password, // I think need to use base64
-                    friends: req.body.friends,
-                    chats: req.body.chats
-                }
-                )
-    )
-    {
-        res.json({"New user created :" :users[users.length-1]})
-    }
-    else{
-        res.json("New user don't created")
-    }
+app.put('/users/:id', (req, res) => {
+    try{
+        let user = users.find(user => {
+            return user.id === Number(req.params.id)
+        })
+        if(!user) throw new Error('there is no such user')
 
+        if (req.body.userName) user.userName = req.body.userName
+        if (req.body.password) user.password = req.body.password
+        if (req.body.friends) { req.body.friends.forEach(element => { user.friends.push(element) })}
+        if (req.body.chats) { req.body.chats.forEach(element => { user.chats.push(element) })}
 
+        res.sendStatus(200)
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
 })
 
+app.delete('/users/:id', (req, res) => {
+    try{
+        let user = users.find(user => {
+            return user.id === Number(req.params.id)
+        })
+        if(!user) throw new Error('there is no such user')
+
+        users = users.filter(user => {
+            return user.id !== Number(req.params.id)
+        })
+        res.status(200).send(user)
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
+
+app.post('/users', (req, res) => {
+    try{
+        if(req.body.userName &&
+            req.body.password &&
+            req.body.friends &&
+            req.body.chats // need to add other conditions
+        ){
+            let user = {
+                id: ++usersIdIncrementer,
+                userName: req.body.userName,
+                password: req.body.password,
+                friends: req.body.friends,
+                chats: req.body.chats
+            }
+            users.push(user)
+            res.status(200).send(JSON.stringify(user))
+        } else throw new Error('some of the options are empty')
+    }
+    catch(err){
+        res.status(500).send(`Error: ${err.message}`)
+    }
+})
+
+app.get('/chats/getMessages',(req,res) =>{
+    res.setHeader('Content-Type', 'application/json')
+    res.send(JSON.stringify(chats[Number(req.query.id)].messages))
+})
 app.listen(port, () => {
     console.log('server strting on port ' + port);
 })
