@@ -7,13 +7,6 @@ const
     shortid = require('shortid');
 ;
 
-// crutches
-
-let chatsIdIncrementer = 0,
-    usersIdIncrementer = 0;
-
-// /crutches
-
 // post body settings
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
