@@ -66,14 +66,22 @@ app.get('/chats/filter', (req, res) => {
 })
 
 
-app.post('/chats', (req, res) => {
-    chats.push({
-        id: ++chatsIdIncrementer,
-        participants: req.body.participants,
-        admins: req.body.admins,
-        messagesHistory: req.body.messagesHistory
-    })
-    res.sendStatus(200)
+app.post('/chats', (req, res) => 
+{
+    if(chats.push({
+                    id: ++chatsIdIncrementer,
+                    participants: req.body.participants,
+                    admins: req.body.admins,
+                    messagesHistory: req.body.messagesHistory
+                } )
+        )
+        
+        {
+            res.json({"New chat created:" :chats[chats.length-1]})
+        }
+        else{
+            res.json("New chat don't created")
+        }
 })
 
 
@@ -121,15 +129,25 @@ app.get('/users/filter', (req, res) => {
     })))
 })
 
-app.post('/users', (req, res) => {
-    users.push({
-        id: ++usersIdIncrementer,
-        name: req.body.name,
-        password: req.body.password, // I think need to use base64
-        friends: req.body.friends,
-        chats: req.body.chats
-    })
-    res.sendStatus(200)
+app.post('/users', (req, res) => 
+{
+    if(users.push({
+                    id: ++usersIdIncrementer,
+                    name: req.body.name,
+                    password: req.body.password, // I think need to use base64
+                    friends: req.body.friends,
+                    chats: req.body.chats
+                }
+                )
+    )
+    {
+        res.json({"New user created :" :users[users.length-1]})
+    }
+    else{
+        res.json("New user don't created")
+    }
+
+
 })
 
 app.listen(port, () => {
