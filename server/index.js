@@ -3,7 +3,8 @@ const
     bodyParser = require('body-parser'),
     app = express(),
     port = 3000,
-    validation = require('./validation')
+    validation = require('./validation'),
+    shortid = require('shortid');
 ;
 
 // crutches
@@ -86,7 +87,7 @@ app.post('/chats', (req, res) => {
             req.body.messages // need to add other conditions
         ){
             let chat = {
-                id: ++chatsIdIncrementer,
+                id: shortid.generate(),
                 title: req.body.title,
                 users: req.body.users,
                 admins: req.body.admins,
@@ -175,7 +176,7 @@ app.post('/users', (req, res) => {
             req.body.chats // need to add other conditions
         ){
             let user = {
-                id: ++usersIdIncrementer,
+                id: shortid.generate(),
                 userName: req.body.userName,
                 password: req.body.password,
                 friends: req.body.friends,
