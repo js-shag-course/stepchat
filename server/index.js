@@ -4,7 +4,7 @@ const
     app = express(),
     port = 3000,
     validation = require('./validation')
-;
+    passwordValidation(./passwordValidation);
 
 // crutches
 
