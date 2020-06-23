@@ -8,8 +8,8 @@ const
 
 // crutches
 
-let chatsIdIncrementer = 0,
-    usersIdIncrementer = 0;
+let chatsIdIncrementer = 0;
+let usersIdIncrementer = 0;
 
 // /crutches
 
