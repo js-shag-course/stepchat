@@ -2,7 +2,7 @@ const
     express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
-    port = 3000
+    port = 3000,
     validation = require('./validation')
 ;
 
