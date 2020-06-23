@@ -5,6 +5,7 @@ const
     port = 3000,
     validation = require('./validation'),
     shortid = require('shortid');
+    passwordEncrypt = require('./passwordEncryption')
 ;
 
 // post body settings
@@ -161,7 +162,7 @@ app.delete('/users/:id', (req, res) => {
     }
 })
 
-app.post('/users', (req, res) => {
+app.post('/users',async (req, res) => {
     try{
         if(req.body.userName &&
             req.body.password &&
@@ -171,7 +172,7 @@ app.post('/users', (req, res) => {
             let user = {
                 id: shortid.generate(),
                 userName: req.body.userName,
-                password: req.body.password,
+                password: await passwordEncrypt.hashPassword(req.body.password),
                 friends: req.body.friends,
                 chats: req.body.chats
             }

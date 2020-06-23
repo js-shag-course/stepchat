@@ -1,18 +1,19 @@
 const bcrypt = require('bcrypt')
-const salt = bcrypt.genSaltSync(10);
+const salt = bcrypt.genSaltSync(Math.floor(Math.random() * 10));
 
-async function hashPassword (password) {
-
-  
+module.exports.hashPassword = async function  (password) {
     const hashedPassword = await new Promise((resolve, reject) => {
       bcrypt.hash(password, salt, function(err, hash) {
         if (err) reject(err)
         resolve(hash)
       });
     })
-    // console.log(hashedPassword);
     return hashedPassword
 }
+//Синхронное 
+// module.exports.hashPassword = function(password) {
+//   return  bcrypt.hashSync(password, salt);
+// }
 
 async function checkUser(user, password) {
  
@@ -26,3 +27,4 @@ async function checkUser(user, password) {
     }
 
 }
+//фв
