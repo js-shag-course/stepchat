@@ -17,7 +17,7 @@ let chats = []
 
 app.get('/chats', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(chats))
+    res.send(JSON.stringify(chats))
 })
 
 app.get('/chats/:id', (req, res) => {
