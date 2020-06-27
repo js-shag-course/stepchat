@@ -1,4 +1,71 @@
 html, body {
     margin: 0;
     padding: 0;
+    background-color: #ebebff;
 }
+
+.header{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.logo{
+    border: 1px solid red;
+    width: 15%;
+    padding: 1%;
+    text-align: center;
+}
+
+.something{
+    border: 1px solid red;
+    width: 71%;
+    padding: 1%;
+    text-align: center;
+}
+
+.user-corner{
+    border: 1px solid red;
+    width: 14%;
+    padding: 1%;
+    text-align: center;
+}
+
+.user-photo{
+
+    text-align: center;
+    float: left;
+}
+
+.username{
+    text-align: right;
+}
+
+.exit-submit{
+    width: 50%;
+    margin-top: 15%;
+}
+
+
+
+@media (max-width: 1070px) {
+    .something{
+        width: 65%;
+    }
+
+    .user-corner{
+        width: 20%;
+    }
+
+  }
+
+  @media (max-width: 560px) {
+    .something{
+        width: 65%;
+    }
+
+    .user-corner{
+        width: 30%;
+    }
+
+  }
