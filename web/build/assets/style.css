@@ -17,6 +17,10 @@ html, body {
     text-align: center;
 }
 
+.logo img{
+    width: 80px;
+}
+
 .something{
     border: 1px solid red;
     width: 71%;
@@ -33,39 +37,19 @@ html, body {
 
 .user-photo{
 
-    text-align: center;
+    text-align: left;
     float: left;
 }
 
+.user-photo img{
+    width: 100px;
+}
+
 .username{
-    text-align: right;
+    text-align: center;
 }
 
 .exit-submit{
     width: 50%;
     margin-top: 15%;
 }
-
-
-
-@media (max-width: 1070px) {
-    .something{
-        width: 65%;
-    }
-
-    .user-corner{
-        width: 20%;
-    }
-
-  }
-
-  @media (max-width: 560px) {
-    .something{
-        width: 65%;
-    }
-
-    .user-corner{
-        width: 30%;
-    }
-
-  }

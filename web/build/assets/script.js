@@ -5,10 +5,10 @@ Vue.component('header-component', {
     computed: {},
     template: `
      <div>
-        <div class = "logo"> Логотип </div>
+        <div class = "logo"> <img src="mobile-app.svg"> </div>
         <div class = "something">Какой-то текст </div>
         <div class = "user-corner">
-            <div class = "user-photo"> Фото </div>
+            <div class = "user-photo"><img src="photo.jpg"> </div>
             <div class = "username">Имя</div>
             <input class = "exit-submit" type = "submit" value="Выход"></div>
         </div>   
