@@ -92,7 +92,7 @@ html, body {
 .tab label{
     bottom: 0px;
     left: 0%;
-    width: 50%;
+    width: 95%;
     height: 100%;
     position: absolute;
     pointer-events: none;

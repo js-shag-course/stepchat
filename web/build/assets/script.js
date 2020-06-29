@@ -40,7 +40,7 @@ Vue.component('registration-component', {
             </div>
             
             <div class = "check">
-                <input type="submit" class = "inputcolor">
+                <input type="submit" class = "inputcolor" value = "Зарегистрироваться">
             </div>
         </div>
         </div>
