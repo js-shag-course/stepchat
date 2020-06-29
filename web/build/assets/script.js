@@ -19,6 +19,36 @@ Vue.component('header-component', {
     } 
  })
 
+Vue.component('registration-component', {
+    data: {},
+    computed: {},
+    template: `
+     <div>
+        <div class = "pass">
+            <div class = "tab">
+                <input type="text" name = "name" autocomplete="off" required>
+                <label for="name" class = "label-name">
+                <span class = "content-name">Name</span>
+                </label>
+            </div>
+            
+            <div class = "tab">
+                <input type="password" name = "name" required>
+                <label for="name" class = "label-name">
+                <span class = "content-name">Password</span>
+                </label>
+            </div>
+            
+            <div class = "check">
+                <input type="submit" class = "inputcolor">
+            </div>
+        </div>
+        </div>
+    `,
+    methods: {
+ 
+    } 
+ })
 
 const app = new Vue({
     el: '#app',
@@ -38,7 +68,7 @@ const app = new Vue({
             <header-component class = "header" />
 
 
-            <footer-component class = "footer" />
+            <registration-component class = "registration" />
 
         </div>
     `
