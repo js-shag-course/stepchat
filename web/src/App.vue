@@ -2,7 +2,10 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/Registration">Registration</router-link> |
+      <router-link to="/Login">Login</router-link> |
+      <router-link to="/ChatList">ChatList</router-link> |
+      <router-link to="/ChatList/Chat">Chat</router-link>
     </div>
     <router-view/>
   </div>
@@ -10,13 +13,7 @@
 
 <script>
 export default {
-  name: 'app',
-  data: {
-    text: 'hello!'
-  },
-  methods: {
-    
-  }
+  name: 'app'
 }
 </script>
 
