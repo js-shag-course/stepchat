@@ -1,7 +1,9 @@
 'use strict'
 
 Vue.component('header-component', {
-    data: {},
+    data: function(){
+        return {}
+    },
     computed: {},
     template: `
      <div>
@@ -20,7 +22,9 @@ Vue.component('header-component', {
  })
 
 Vue.component('registration-component', {
-    data: {},
+    data: function(){
+        return {}
+    },
     computed: {},
     template: `
      <div>
@@ -51,7 +55,9 @@ Vue.component('registration-component', {
  })
 
  Vue.component('vhod-component', {
-    data: {},
+    data: function(){
+        return {}
+    },
     computed: {},
     template: `
      <div>
