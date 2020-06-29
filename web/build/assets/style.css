@@ -55,7 +55,7 @@ html, body {
 /* Конец header */
 
 /* Начало регистрационного окна */
-.pass{
+.registration-table{
     position: absolute;
     flex-direction: column;
     background-color:#ccc9da ;
@@ -70,13 +70,14 @@ html, body {
     width: 50%;
     height: 50px;
     padding-top: 5px;
+    margin-left: -5%;
 }
 
-.pass input{
+.registration-table input{
     margin-left: 65%;
 }
 
-.pass label{
+.registration-table label{
         margin-left: 65%;
 }
 
@@ -102,7 +103,7 @@ html, body {
 .content-name{
     position: absolute;
     bottom: 5px;
-    left: 0px;
+    left: 45px;
     transition: all 0.3s ease;
 }
 
@@ -117,6 +118,7 @@ html, body {
     margin-top: 30px;
     width: 50%;
     border-radius: 10%;
+    margin-left: -5%;
 }
 
 .inputcolor{
@@ -126,3 +128,31 @@ html, body {
     border-radius: 5px;
 }
 /* Конец регистрационного окна */
+
+/* Дополнения для окна входа*/
+.vhod-table{
+    position: absolute;
+    flex-direction: column;
+    background-color:#ccc9da ;
+    width: 300px;
+    height: 200px;
+    margin-left: 40%;
+    border-radius: 5%;
+    margin-top: 20%;
+}
+
+.vhod-table input{
+    margin-left: 65%;
+}
+
+.vhod-table label{
+        margin-left: 65%;
+}
+.vhod-table .check{
+    position: relative;
+    margin-top: 30px;
+    width: 50%;
+    border-radius: 10%;
+    margin-left: 10%;
+}
+/*Конец изменений*/

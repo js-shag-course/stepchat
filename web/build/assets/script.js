@@ -24,7 +24,7 @@ Vue.component('registration-component', {
     computed: {},
     template: `
      <div>
-        <div class = "pass">
+        <div class = "registration-table">
             <div class = "tab">
                 <input type="text" name = "name" autocomplete="off" required>
                 <label for="name" class = "label-name">
@@ -41,6 +41,37 @@ Vue.component('registration-component', {
             
             <div class = "check">
                 <input type="submit" class = "inputcolor" value = "Зарегистрироваться">
+            </div>
+        </div>
+        </div>
+    `,
+    methods: {
+ 
+    } 
+ })
+
+ Vue.component('vhod-component', {
+    data: {},
+    computed: {},
+    template: `
+     <div>
+        <div class = "vhod-table">
+            <div class = "tab">
+                <input type="text" name = "name" autocomplete="off" required>
+                <label for="name" class = "label-name">
+                <span class = "content-name">Name</span>
+                </label>
+            </div>
+            
+            <div class = "tab">
+                <input type="password" name = "name" required>
+                <label for="name" class = "label-name">
+                <span class = "content-name">Password</span>
+                </label>
+            </div>
+            
+            <div class = "check">
+                <input type="submit" class = "inputcolor" value = "Войти">
             </div>
         </div>
         </div>
@@ -69,6 +100,9 @@ const app = new Vue({
 
 
             <registration-component class = "registration" />
+            
+
+            <vhod-component class = "vhod" />
 
         </div>
     `
