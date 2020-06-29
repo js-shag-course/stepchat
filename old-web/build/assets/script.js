@@ -22,7 +22,7 @@ Vue.component('header-component', {
  })
 
 Vue.component('registration-component', {
-    data: function(){
+    data: function () {
         return {}
     },
     computed: {},
