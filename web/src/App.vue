@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-      <router-link to="/"></router-link>
-      <router-link to="/about"></router-link>
-      <router-link to="/reg"></router-link>
-      <router-link to="/sign"></router-link>
+    <div id="nav">
+      <router-link to="/">Главная </router-link>|
+      <router-link to="/about"> About </router-link>|
+      <router-link to="/reg"> Регистрация </router-link>|
+      <router-link to="/sign"> Вход </router-link>
     <router-view/>
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,17 @@ export default {
 </script>
 
 <style lang="scss">
+#nav {
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
