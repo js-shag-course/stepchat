@@ -1,7 +1,10 @@
 <template>
     <div class = "header">
         <div class = "logo"> <img src="../assets/logo.png"> </div>
-        <div class = "something">Какой-то текст </div>
+        <div class = "something">
+            <router-link to="/Registration">Registration</router-link> |
+            <router-link to="/SignIn">Login</router-link>
+        </div>
         <div class = "user-corner">
             <div class = "user-photo"><img src="../assets/photo.jpg"> </div>
             <div class = "username">Имя</div>
@@ -12,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'TheHeader',
   props: {}

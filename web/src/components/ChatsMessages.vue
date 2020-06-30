@@ -19,7 +19,7 @@ export default {
       messages: []
     }
   },
-  components:{
+  components: {
     IncomingMessages
   },
   methods: {
