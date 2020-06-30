@@ -11,11 +11,14 @@
 <script>
 import TheFooter from '@/components/TheFooter.vue'
 import TheHeader from '@/components/TheHeader.vue'
+
+import api from '@/store/api.js'
+
 export default {
   name: 'app',
-  data: function () {
-    return {}
-  },
+  data: () => ({
+    api: api
+  }),
   methods: {},
   components: {
     TheFooter,
