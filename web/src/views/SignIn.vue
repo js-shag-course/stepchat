@@ -1,5 +1,5 @@
 <template>
-    <SignIn />
+    <SignIn :username="username" />
 </template>
 
 <script>
@@ -15,6 +15,19 @@ export default {
   },
   data: () => ({
     api: api
-  })
+  }),
+  computed: {
+    login: function () {
+      return `${api.host}${api.endpoint.users}`
+    },
+    username: {
+      get () {
+        return localStorage.getItem('userName')
+      },
+      set (newValue) {
+        localStorage.setItem('userName', newValue)
+      }
+    }
+  }
 }
 </script>

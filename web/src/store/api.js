@@ -1,7 +1,8 @@
 export default {
-  host: 'http://localhost:3000',
+  host: process.env.VUE_APP_API_URL,
   endpoint: {
-    login: '/login',
-    register: '/register'
+    chats: '/chats/',
+    users: '/users',
+    messages: '/chats/messages/'
   }
 }

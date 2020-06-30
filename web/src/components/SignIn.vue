@@ -1,21 +1,21 @@
 <template>
 <div class = "vhod-table">
     <div class = "tab">
-        <input type="text" name = "name" autocomplete="off" required>
+        <input type="text"  v-model="name" name = "name" autocomplete="off" required>
         <label for="name" class = "label-name">
         <span class = "content-name">Name</span>
         </label>
     </div>
 
     <div class = "tab">
-        <input type="password" name = "name" required>
+        <input type="password" v-model="password" name = "name" required>
         <label for="name" class = "label-name">
         <span class = "content-name">Password</span>
         </label>
     </div>
 
     <div class = "check">
-        <input type="submit" class = "inputcolor" value = "Войти">
+        <button @click="login" >Регистрация</button>
     </div>
 </div>
 </template>
@@ -23,7 +23,29 @@
 <script>
 export default {
   name: 'SignIn',
-  props: {}
+  data: () => ({
+    name: null,
+    password: null
+  }),
+  props: {
+    username: {
+      type: String,
+      default: 'anon'
+    }
+  },
+  watch: {
+    name: function (newValue, oldValue) {
+      console.log(newValue, oldValue)
+    }
+  },
+  methods: {
+    login () {
+      alert('KARAMBA')
+    }
+  },
+  beforeMount () {},
+  beforeCreate () {},
+  beforeUpdate() {},
 }
 </script>
 
