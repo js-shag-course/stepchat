@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="sender-img">
-        <img src="">
+        <img :src="require('')">
       </div>
       <div class="msg-box">
         <div class="msg-inbox">
@@ -26,23 +26,21 @@ export default {
 
 <style lang="sass" scoped>
 .container
-  width: 50%
+  width: 100%
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
 
 img
   max-width: 100%
   border-radius: 50%
 
 .sender-img
-  display: inline-block
+  padding: .25rem .5rem
   width: 3rem
 
-.msg-box
-  display: inline-block
-  vertical-align: top
-  width: 92%
-
 .msg-inbox
-  width: 57%
+  width: auto
 
 .msg-inbox
   p
@@ -63,7 +61,6 @@ img
 
 .timestamp
   color: rgb(119,119,119)
-  display: block
   font-size: .7rem
   margin: .5rem 0 0
 </style>
