@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Главная </router-link>|
-      <router-link to="/about"> About </router-link>|
-      <router-link to="/reg"> Регистрация </router-link>|
-      <router-link to="/sign"> Вход </router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/Registration">Registration</router-link> |
+      <router-link to="/Login">Login</router-link> |
+      <router-link to="/ChatList">ChatList</router-link> |
+      <router-link to="/ChatList/Chat">Chat</router-link>
     <router-view/>
     </div>
   </div>
@@ -21,15 +22,9 @@ export default {
 </script>
 
 <style lang="scss">
-#nav {
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+html, body, form{
+  margin: 0;
+  padding: 0
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -38,7 +33,14 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-body{
-    background-color: #ffe7e7;
+#nav {
+  padding: 30px;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
