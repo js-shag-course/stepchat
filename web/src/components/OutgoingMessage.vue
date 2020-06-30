@@ -15,7 +15,7 @@ export default {
   name: 'OutgoingMessage',
   props: {
     message: String,
-    time: Date,
+    time: Date
   }
 }
 </script>

@@ -1,23 +1,26 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/Registration">Registration</router-link> |
-      <router-link to="/Login">Login</router-link> |
-      <router-link to="/ChatList">ChatList</router-link> |
-      <router-link to="/ChatList/Chat">Chat</router-link>
-    <router-view/>
+      <TheHeader/>
+      <router-view/>
+      <TheFooter/>
     </div>
   </div>
 </template>
 
 <script>
+import TheFooter from '@/components/TheFooter.vue'
+import TheHeader from '@/components/TheHeader.vue'
 export default {
   name: 'app',
   data: function () {
     return {}
   },
-  methods: {}
+  methods: {},
+  components: {
+    TheFooter,
+    TheHeader
+  }
 }
 </script>
 
@@ -32,6 +35,9 @@ html, body, form{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #nav {
   padding: 30px;
