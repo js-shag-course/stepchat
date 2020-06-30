@@ -213,7 +213,6 @@ app.put('/users/:id', (req, res) => {
                 user.chats.push(element) 
             })
         }
-
         res.sendStatus(200)
     }
     catch(err){
@@ -312,12 +311,22 @@ app.post('/users',async (req, res) => {
     }
 })
 
-app.get('/chats/getMessages',(req,res) =>{
+app.get('/chats/messages/:id',(req,res) =>{
     res.setHeader('Content-Type', 'application/json')
-    res.send(JSON.stringify(chats[req.query.id].messages))
+    
+    try{
+        let chat = chats.find(chat => {
+            return chat.id === req.params.id
+        })
+        if(!chat) throw new Error('there is no such messages in chat')
+        res.send(JSON.stringify(chat.message))
+    }
+    catch(err){
+        res.status(500).send(JSON.stringify({Error: err.message}))
+    }
 })
 app.listen(port, () => {
-    console.log('server strting on port ' + port);
+    console.log('server staring on port ' + port)
 })
 
 module.exports.chats = chats
