@@ -1,15 +1,15 @@
 <template>
-  <Registration />
+    <SignIn />
 </template>
 
 <script>
 // @ is an alias to /src
-import Registration from '@/components/Registration.vue'
+import SignIn from '@/components/SignIn.vue'
 
 export default {
-  name: 'Reg',
+  name: 'Sign',
   components: {
-    Registration
+    SignIn
   }
 }
 </script>

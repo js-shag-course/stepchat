@@ -6,14 +6,18 @@
       <router-link to="/Login">Login</router-link> |
       <router-link to="/ChatList">ChatList</router-link> |
       <router-link to="/ChatList/Chat">Chat</router-link>
-    </div>
     <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data: function () {
+    return {}
+  },
+  methods: {}
 }
 </script>
 

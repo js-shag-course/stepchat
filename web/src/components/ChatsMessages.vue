@@ -1,7 +1,7 @@
 <template>
   <div id="messages" @click: (getMessagesJson())>
     <ul>
-        <IncomingMessages v-for="message in getAllMessages" :message = "message"></IncomingMessages>
+        <IncomingMessages v-for="message in messages" :message = "message"></IncomingMessages>
     </ul>
   </div>
 </template>
