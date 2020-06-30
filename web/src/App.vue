@@ -3,6 +3,7 @@
       <router-link to="/"></router-link>
       <router-link to="/about"></router-link>
       <router-link to="/reg"></router-link>
+      <router-link to="/sign"></router-link>
     <router-view/>
   </div>
 </template>

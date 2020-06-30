@@ -29,7 +29,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .registration-table{
-    position: absolute;
     flex-direction: column;
     background-color:#ccc9da ;
     width: 300px;

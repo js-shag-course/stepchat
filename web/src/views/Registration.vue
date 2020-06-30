@@ -4,10 +4,10 @@
 
 <script>
 // @ is an alias to /src
-import Registration from '@/components/TheReg.vue'
+import Registration from '@/components/Registration.vue'
 
 export default {
-  name: 'Registration',
+  name: 'Reg',
   components: {
     Registration
   }
