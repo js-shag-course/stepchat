@@ -1,15 +1,13 @@
 <template>
   <div id="messages" @click: (getMessagesJson())>
     <ul>
-      <li class="sent" v-for="message in getAllMessages" :key = "message" >
-        <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-        <p> {{message.message}}</p>
-      </li>
+        <IncomingMessages v-for="message in getAllMessages" :message = "message"></IncomingMessages>
     </ul>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import IncomingMessages from '@/components/IncomingMessage'
 export default {
   name: 'messages',
   data () {
@@ -20,6 +18,9 @@ export default {
       },
       messages: []
     }
+  },
+  components:{
+    IncomingMessages
   },
   methods: {
     getMessagesJson () {

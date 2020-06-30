@@ -1,15 +1,17 @@
 <template>
   <div class="container">
+    <li>
       <div class="sender-img">
         <img :src="require('')">
       </div>
       <div class="msg-box">
         <div class="msg-inbox">
-          <p class="sender">{{ username }}</p>
-          <p class="msg">{{ message }}</p>
-          <span class="timestamp">{{ time }}</span>
+          <p class="sender">{{ message.username }}</p>
+          <p class="msg">{{ message.message }}</p>
+          <span class="timestamp">{{ message.time }}</span>
         </div>
       </div>
+    </li>
   </div>
 </template>
 
@@ -17,9 +19,10 @@
 export default {
   name: 'IncomingMessage',
   props: {
-    username: String,
-    message: String,
-    time: Date
+    message: {
+      type: Object,
+      requried: true
+    }
   }
 }
 </script>
