@@ -18,7 +18,7 @@ export default {
   }),
   computed: {
     login: function () {
-      return `${api.host}${api.endpoint.users}`
+      return `${api.host}${api.endpoint.chats}`
     },
     username: {
       get () {

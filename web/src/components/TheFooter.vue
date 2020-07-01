@@ -13,7 +13,7 @@ export default {
 <style scoped lang="scss">
 .footer{
     margin-top:0%;
-    width: 100%;
+    width: 99%;
     border:1px solid red;
     text-align: center;
     padding: 10px;

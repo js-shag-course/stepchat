@@ -2,12 +2,11 @@
 <div class="chats">
 <h2>Чаты:</h2>
 <ol class = characters>
-<li>Чат1</li>
-<li>Чат2</li>
-<li>Чат3</li>
-<li>Чат4</li>
+<li @click="login" tag = "a"><router-link to="/Chats/Chat">Чат1</router-link></li>
+<li @click="login" tag = "a"><router-link to="/Chats/Chat">Чат2</router-link></li>
+<li @click="login" tag = "a"><router-link to="/Chats/Chat">Чат3</router-link></li>
+<li @click="login" tag = "a"><router-link to="/Chats/Chat">Чат4</router-link></li>
 </ol>
-
 </div>
 
 </template>
@@ -49,5 +48,8 @@ font-size: 200%;
 color:white;
 border: 1px solid #f5615a;
 background-color: #f5615a;
+}
+a{
+  color:#ff6767;
 }
 </style>

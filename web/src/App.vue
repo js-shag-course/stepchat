@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
       <TheHeader/>
       <router-view/>
       <TheFooter/>
-    </div>
   </div>
 </template>
 
@@ -42,8 +40,7 @@ html, body, form{
   flex-direction: column;
   justify-content: space-between;
 }
-#nav {
-  padding: 30px;
+
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -51,5 +48,5 @@ html, body, form{
       color: #42b983;
     }
   }
-}
+
 </style>
