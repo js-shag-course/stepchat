@@ -1,11 +1,11 @@
 <template>
-<div class="chats">
-<h2>Чаты:</h2>
-<ol class = characters>
-<li tag = "a"><router-link to="/Chats/Chat">Чат1</router-link></li>
-<li tag = "a"><router-link to="/Chats/Chat">Чат2</router-link></li>
-<li tag = "a"><router-link to="/Chats/Chat">Чат3</router-link></li>
-<li tag = "a"><router-link to="/Chats/Chat">Чат4</router-link></li>
+<div class="participants">
+<h2>Список участников:</h2>
+<ol class = SpisokPol>
+<li tag = "a">Пользователь1</li>
+<li tag = "a">Пользователь2</li>
+<li tag = "a">Пользователь3</li>
+<li tag = "a">Пользователь4</li>
 </ol>
 </div>
 
@@ -20,7 +20,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.chats {
+.participants {
 overflow: scroll;
 width: 400px;
 height: 500px;
@@ -42,7 +42,7 @@ margin-top: 5px;
 color: red;
 padding: 10px;
 }
-.chats li:hover{
+.SpisokPol li:hover{
 color:white;
 border: 1px solid #f5615a;
 background-color: #f5615a;
