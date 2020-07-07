@@ -13,7 +13,7 @@
             </label>
         </div>
         <div class = "check">
-            <input type="submit" class = "inputcolor" value = "Зарегистрироваться">
+            <button @click="login" tag = "a" class = "inputcolor"><router-link to="/Chats">Зарегистрироваться</router-link></button>
         </div>
     </div>
 
@@ -98,5 +98,11 @@ export default {
     color: #fff6aa;
     border: 3px solid #8e8e8e;
     border-radius: 5px;
+    margin-left: 90px;
+}
+
+ a {
+  text-decoration: none;
+  color:#eefd75;
 }
 </style>

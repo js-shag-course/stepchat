@@ -8,28 +8,19 @@
 <script>
 import axios from 'axios'
 import IncomingMessages from '@/components/IncomingMessage'
+import api from '@/store/api'
 export default {
   name: 'messages',
   data () {
     return {
-      id: 'Mwh8CZC4S',
-      url: {
-        chatUrl: `http://localhost:3000/chats/messages/${this.id}`
-      },
-      messages: []
+      api: api,
+      id : '',
+      messages: api.chats.messages(id)
     }
   },
   components: {
     IncomingMessages
   },
-  methods: {
-    getMessagesJson () {
-      axios.get(this.url.chatUrl).then(response => {
-        this.messages = response.data
-      })
-    }
-  }
-
 }
 </script>
 <style></style>
