@@ -1,7 +1,7 @@
 <template>
   <div id="messages" @click: (getMessagesJson())>
     <ul>
-        <IncomingMessages v-for="message in messages" :message = "message"></IncomingMessages>
+      <IncomingMessages v-for="message in messages" :message = "message"></IncomingMessages>
     </ul>
   </div>
 </template>
@@ -14,13 +14,13 @@ export default {
   data () {
     return {
       api: api,
-      id : '',
+      id: '',
       messages: api.chats.messages(id)
     }
   },
   components: {
     IncomingMessages
-  },
+  }
 }
 </script>
 <style></style>

@@ -106,7 +106,7 @@ export default {
       try {
         return await api.get(`/chats/messages/${id}`)
       } catch (err) {
-        return err.response 
+        return err.response
       }
     }
   }
