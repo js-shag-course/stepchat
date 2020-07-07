@@ -15,17 +15,21 @@
     </div>
 
     <div class = "check">
-        <button @click="login" >Регистрация</button>
+        <button @click="login" tag = "a" class = "inputcolor"><router-link to="/Chats">Войти</router-link></button>
     </div>
 </div>
 </template>
 
 <script>
+
+import api from '@/store/api.js'
+
 export default {
   name: 'SignIn',
   data: () => ({
     name: null,
-    password: null
+    password: null,
+    api: api
   }),
   props: {
     username: {
@@ -40,12 +44,12 @@ export default {
   },
   methods: {
     login () {
-      alert('KARAMBA')
+      return api.endpoint.chats
     }
-  },
-  beforeMount () {},
-  beforeCreate () {},
-  beforeUpdate() {},
+  }
+  // beforeMount () {},
+  // beforeCreate () {},
+  // beforeUpdate () {}
 }
 </script>
 
@@ -120,13 +124,18 @@ export default {
     margin-top: 30px;
     width: 50%;
     border-radius: 10%;
-    margin-left: -5%;
 }
 
 .inputcolor{
     background: #8e8e8e;
-    color: #fff6aa;
     border: 3px solid #8e8e8e;
     border-radius: 5px;
+      margin-left: 90px;
+      text-decoration: none;
+      color: #fff6aa;
+}
+ a {
+  text-decoration: none;
+  color:#eefd75;
 }
 </style>
