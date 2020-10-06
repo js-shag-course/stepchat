@@ -6,7 +6,7 @@ let user = {
 }
 but.onclick = function(){
     console.log("f");
-    let response =  fetch('http://localhost:3000/',{
+    let response =  fetch('http://localhost:3000/user',{
         method: 'POST',
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
