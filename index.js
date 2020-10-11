@@ -1,8 +1,12 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const cors = require('cors')
 
 app.use(bodyParser.json())
+app.use(morgan('combined'))
+app.use(cors())
 
 const messages = []
 const users = []
@@ -44,4 +48,4 @@ app.delete('/user/:name', (req, res) => {
   }
 })
 
-app.listen(3000)
+app.listen(3000, '0.0.0.0', () => console.log('>>> Server started'))
