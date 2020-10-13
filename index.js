@@ -34,20 +34,23 @@ app.post('/message', (req, res) => {
 app.post('/user', (req, res) => {
   const user = req.body
   NameCorrect = true;
-  if(users.length!=0){
-    users.forEach(element => {
-      if (element === user.name) {
-        NameCorrect = false
-      }
-    })
-  }
-  if(NameCorrect == false){
-    res.sendStatus(500)
-  } else {
+  if(user.name.length!=0){
+    if(users.length!=0){
+      users.forEach(element => {
+        if (element === user.name) {
+          NameCorrect = false
+        }
+      })
+    }
+    if(NameCorrect == false){
+      res.sendStatus(500)
+    }else {
     users.push(user.name)
     res.sendStatus(200)
   }
+  }
 })
+
 app.delete('/user/:name', (req, res) => {
   const user = req.params.name
 
