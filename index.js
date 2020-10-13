@@ -11,8 +11,8 @@ app.use(cors())
 const messages = []
 const users = []
 const time = {
-  hour = [],
-  minut = []
+  hour: [],
+  minut: []
 }
 
 app.get('/', (req, res) => res.status(200).json({
