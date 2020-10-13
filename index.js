@@ -10,10 +10,15 @@ app.use(cors())
 
 const messages = []
 const users = []
+const time = {
+  hour = [],
+  minut = []
+}
 
 app.get('/', (req, res) => res.status(200).json({
   users: users,
-  messages: messages
+  messages: messages,
+  time: time
 }))
 
 app.post('/message', (req, res) => {
@@ -23,6 +28,8 @@ app.post('/message', (req, res) => {
     res.sendStatus(500)
   } else {
     messages.push({ name: message.name, text: message.text })
+    time.hour.push(message.time.hour)
+    time.minut.push(message.time.minut)
     res.sendStatus(200)
   }
 })
