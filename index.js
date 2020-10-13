@@ -18,19 +18,30 @@ app.get('/', (req, res) => res.status(200).json({
 
 app.post('/message', (req, res) => {
   const message = req.body
-  
-  if (!message.name || !message.text) {
-    res.sendStatus(500)
-  } else {
-    messages.push({ name: message.name, text: message.text })
-    res.sendStatus(200)
-  }
+
+    if (!message.name || !message.text) {
+      res.sendStatus(500)
+    } else {
+        if(message.text.length<100){
+          messages.push({ name: message.name, text: message.text })
+          res.sendStatus(200)
+        }else{
+          res.sendStatus(501)
+        }
+    }
 })
 
 app.post('/user', (req, res) => {
   const user = req.body
-
-  if (!user.name) {
+  NameCorrect = true;
+  if(users.length!=0){
+    users.forEach(element => {
+      if (element === user.name) {
+        NameCorrect = false
+      }
+    })
+  }
+  if(NameCorrect == false){
     res.sendStatus(500)
   } else {
     users.push(user.name)
