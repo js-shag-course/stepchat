@@ -1,12 +1,11 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const cors = require('cors')
+
+const multer = require('multer')
+const upload = multer({ dest: 'tmp/' })
 
 app.use(bodyParser.json())
-app.use(morgan('combined'))
-app.use(cors())
 
 const messages = []
 const users = []
@@ -48,4 +47,12 @@ app.delete('/user/:name', (req, res) => {
   }
 })
 
-app.listen(3000, '0.0.0.0', () => console.log('>>> Server started'))
+// upload files
+app.post('/files', upload.single('image'), (req, res, next) => {
+  const file = req.file
+  if (file.size > 100000) res.sendStatus(500)
+  console.log(req.file)
+  res.sendStatus(200)
+})
+
+app.listen(3000, '0.0.0.0')
