@@ -38,12 +38,8 @@ app.post('/user', (req, res) => {
   const user = req.body
   NameCorrect = true;
   if(user.name.length!=0){
-    if(users.length!=0){
-      users.forEach(element => {
-        if (element === user.name) {
-          NameCorrect = false
-        }
-      })
+    if (users.includes(user.name)) {
+      NameCorrect = false
     }
     if(NameCorrect == false){
       res.sendStatus(500)
