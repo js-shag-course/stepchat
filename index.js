@@ -16,6 +16,7 @@ app.use(express.static('public'))
 
 const messages = []
 const users = []
+const usersOnline = []
 
 app.get('/', (req, res) => res.status(200).json({
   users: users,
@@ -97,7 +98,7 @@ function delBadFile(fileName) {
 // Web Socket
 wss.on('connection', (ws) => {
   const msg = {
-    action: '', // message, userIn, UserOut
+    action: '', // message, register, login, logout
     payload: {
       // something
     }
@@ -109,13 +110,14 @@ wss.on('connection', (ws) => {
     ws.send(JSON.stringify(messages))
     msg = JSON.parse(msg)
 
+    // Get Message
     if(msg.action === 'message') {
       if (msg.payload.text.length === 0 || msg.payload.text.length > 512) {
         ws.send(JSON.stringify({
           type: 'error',
           msg: 'Плохое сообщение'
         }))
-        return new Error('bad msg')
+        return
       }
       messages.push({
         date: new Date(Date.now()),
@@ -126,35 +128,90 @@ wss.on('connection', (ws) => {
       ws.send(JSON.stringify(messages))
     }
 
-    if (msg.action == 'userIn') {
-      if (msg.payload.login.length === 0 || msg.payload.login.length > 128) {
+    // Get new user
+    if (msg.action === 'register') {
+      const notUnique = users.find(user => {
+        return user.login === msg.payload.login
+      })
+      if (notUnique || msg.payload.login.length === 0 || msg.payload.login.length > 128) {
         ws.send(JSON.stringify({
           type: 'error',
           msg: 'Плохой Логин'
         }))
-        return new Error('bad login')
+        return 
       }
       if (msg.payload.password.length < 6 || msg.payload.password.length > 128) {
         ws.send(JSON.stringify({
           type: 'error',
           msg: 'Плохой пароль'
         }))
-        return new Error('bad password')
+        return 
       }
 
-      users.push({
+      const newUser = {
         loginTime: new Date(Date.now()),
         login: msg.payload.login,
         password: msg.payload.password,
-        name: msg.payload.name,
-        avatar: msg.payload.avatar,
+        name: msg.payload.name
+          ? msg.payload.name
+          : msg.payload.login,
+        avatar: msg.payload.avatar
+          ? msg.payload.avatar
+          : 'https://robohash.org/' + msg.payload.login
+      }
+    
+      users.push(newUser)
+      usersOnline.push({
+        name: newUser.name,
+        login: newUser.login,
+        avatar: newUser.avatar
       })
+      ws.send(JSON.stringify(newUser))
     }
 
-    if (msg.action == 'userOut') {
+    if (msg.action === 'login') {
+      // msg.payload.login
+      // msg.payload.password
 
+      const userIndex = users.findIndex(user => user.login === msg.payload.login)
+
+      if (userIndex < 0) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          msg: 'Пользователь не найден'
+        }))
+      } else if (users[userIndex].password !== msg.payload.password) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          msg: 'Неправильный пароль'
+        }))
+      } else {
+        const loginUser = {
+          name: users[userIndex].name,
+          login: users[userIndex].login,
+          avatar: users[userIndex].avatar
+        }
+        usersOnline.push(loginUser)
+        ws.send(JSON.stringify(loginUser))
+      }
+    }
+    if (msg.action === 'logout') {
+      const userIndex = usersOnline.findIndex(user => user.login === msg.payload.login)
+      if (userIndex >= 0) {
+        usersOnline.splice(userIndex, 1)
+        ws.send(JSON.stringify({
+          type: 'success',
+          msg: 'Вы вышли из чата'
+        }))
+      }
     }
 
+    ws.send(JSON.stringify({
+      users: users,
+      online: usersOnline,
+      messages: messages
+
+    }))
   })
 })
 
