@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+const WebSocket = require('ws')
+const wss = new WebSocket.Server({ port: 8080 })
+
 const fs = require('fs')
 const multer = require('multer')
 const upload = multer({ dest: 'tmp/' })
@@ -90,5 +93,69 @@ app.post('/files', upload.single('image'), (req, res) => {
 function delBadFile(fileName) {
   fs.unlinkSync(tmpDir + '/' + fileName)
 }
+
+// Web Socket
+wss.on('connection', (ws) => {
+  const msg = {
+    action: '', // message, userIn, UserOut
+    payload: {
+      // something
+    }
+  }
+  ws.on('message', function incoming(msg) {
+    // messages.push({ name: 'socket-user', text: message })
+    // console.log(message)
+    // ws.send(JSON.stringify(messages))
+    ws.send(JSON.stringify(messages))
+    msg = JSON.parse(msg)
+
+    if(msg.action === 'message') {
+      if (msg.payload.text.length === 0 || msg.payload.text.length > 512) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          msg: 'Плохое сообщение'
+        }))
+        return new Error('bad msg')
+      }
+      messages.push({
+        date: new Date(Date.now()),
+        name: msg.payload.name,
+        text: msg.payload.text,
+        type: msg.payload.type
+      })
+      ws.send(JSON.stringify(messages))
+    }
+
+    if (msg.action == 'userIn') {
+      if (msg.payload.login.length === 0 || msg.payload.login.length > 128) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          msg: 'Плохой Логин'
+        }))
+        return new Error('bad login')
+      }
+      if (msg.payload.password.length < 6 || msg.payload.password.length > 128) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          msg: 'Плохой пароль'
+        }))
+        return new Error('bad password')
+      }
+
+      users.push({
+        loginTime: new Date(Date.now()),
+        login: msg.payload.login,
+        password: msg.payload.password,
+        name: msg.payload.name,
+        avatar: msg.payload.avatar,
+      })
+    }
+
+    if (msg.action == 'userOut') {
+
+    }
+
+  })
+})
 
 app.listen(3000, '0.0.0.0')
