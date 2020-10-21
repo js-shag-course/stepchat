@@ -97,16 +97,15 @@ function delBadFile(fileName) {
 
 // Web Socket
 wss.on('connection', (ws) => {
-  const msg = {
-    action: '', // message, register, login, logout
+  ws.send(JSON.stringify({
+    action: 'sendData',
     payload: {
-      // something
+      users: usersOnline,
+      messages: messages
     }
-  }
+  }))
+
   ws.on('message', function incoming(msg) {
-    // messages.push({ name: 'socket-user', text: message })
-    // console.log(message)
-    // ws.send(JSON.stringify(messages))
     ws.send(JSON.stringify(messages))
     msg = JSON.parse(msg)
 
@@ -114,8 +113,11 @@ wss.on('connection', (ws) => {
     if(msg.action === 'message') {
       if (msg.payload.text.length === 0 || msg.payload.text.length > 512) {
         ws.send(JSON.stringify({
-          type: 'error',
-          msg: 'Плохое сообщение'
+          action: 'sendStatus',
+          payload: {
+            type: 'error',
+            msg: 'Плохое сообщение'
+          }
         }))
         return
       }
@@ -125,7 +127,13 @@ wss.on('connection', (ws) => {
         text: msg.payload.text,
         type: msg.payload.type
       })
-      ws.send(JSON.stringify(messages))
+      ws.send(JSON.stringify({
+        action: 'sendData',
+        payload: {
+          users: usersOnline,
+          messages: messages
+        }
+      }))
     }
 
     // Get new user
@@ -135,15 +143,21 @@ wss.on('connection', (ws) => {
       })
       if (notUnique || msg.payload.login.length === 0 || msg.payload.login.length > 128) {
         ws.send(JSON.stringify({
-          type: 'error',
-          msg: 'Плохой Логин'
+          action: 'sendStatus',
+          payload: {
+            type: 'error',
+            msg: 'Плохой Логин'
+          }
         }))
         return 
       }
       if (msg.payload.password.length < 6 || msg.payload.password.length > 128) {
         ws.send(JSON.stringify({
-          type: 'error',
-          msg: 'Плохой пароль'
+          action: 'sendStatus',
+          payload: {
+            type: 'error',
+            msg: 'Плохой Пароль'
+          }
         }))
         return 
       }
@@ -166,7 +180,10 @@ wss.on('connection', (ws) => {
         login: newUser.login,
         avatar: newUser.avatar
       })
-      ws.send(JSON.stringify(newUser))
+      ws.send(JSON.stringify({
+        action: 'sendStatus',
+        payload: newUser
+      }))
     }
 
     if (msg.action === 'login') {
@@ -177,13 +194,19 @@ wss.on('connection', (ws) => {
 
       if (userIndex < 0) {
         ws.send(JSON.stringify({
-          type: 'error',
-          msg: 'Пользователь не найден'
+          action: 'sendStatus',
+          payload: {
+            type: 'error',
+            msg: 'Пользователь не найден'
+          }
         }))
       } else if (users[userIndex].password !== msg.payload.password) {
         ws.send(JSON.stringify({
-          type: 'error',
-          msg: 'Неправильный пароль'
+          action: 'sendStatus',
+          payload: {
+            type: 'error',
+            msg: 'Неправильный пароль'
+          }
         }))
       } else {
         const loginUser = {
@@ -192,7 +215,10 @@ wss.on('connection', (ws) => {
           avatar: users[userIndex].avatar
         }
         usersOnline.push(loginUser)
-        ws.send(JSON.stringify(loginUser))
+        ws.send(JSON.stringify({
+          action: 'sendStatus',
+          payload: loginUser
+        }))
       }
     }
     if (msg.action === 'logout') {
@@ -200,18 +226,14 @@ wss.on('connection', (ws) => {
       if (userIndex >= 0) {
         usersOnline.splice(userIndex, 1)
         ws.send(JSON.stringify({
-          type: 'success',
-          msg: 'Вы вышли из чата'
+          action: 'sendStatus',
+          payload: {
+            type: 'success',
+            msg: 'Вы вышли из чата'
+          }
         }))
       }
     }
-
-    ws.send(JSON.stringify({
-      users: users,
-      online: usersOnline,
-      messages: messages
-
-    }))
   })
 })
 
