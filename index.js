@@ -127,13 +127,17 @@ wss.on('connection', (ws) => {
         text: msg.payload.text,
         type: msg.payload.type
       })
-      ws.send(JSON.stringify({
-        action: 'sendData',
-        payload: {
-          users: usersOnline,
-          messages: messages
+      wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({
+            action: 'sendData',
+            payload: {
+              users: usersOnline,
+              messages: messages
+            }
+          }))
         }
-      }))
+      })
     }
 
     // Get new user
@@ -159,6 +163,7 @@ wss.on('connection', (ws) => {
             msg: 'Плохой Пароль'
           }
         }))
+
         return 
       }
 
@@ -184,6 +189,17 @@ wss.on('connection', (ws) => {
         action: 'sendStatus',
         payload: newUser
       }))
+      wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({
+            action: 'sendData',
+            payload: {
+              users: usersOnline,
+              messages: messages
+            }
+          }))
+        }
+      })
     }
 
     if (msg.action === 'login') {
@@ -219,6 +235,17 @@ wss.on('connection', (ws) => {
           action: 'sendStatus',
           payload: loginUser
         }))
+        wss.clients.forEach(function each(client) {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              action: 'sendData',
+              payload: {
+                users: usersOnline,
+                messages: messages
+              }
+            }))
+          }
+        })
       }
     }
     if (msg.action === 'logout') {
@@ -232,6 +259,17 @@ wss.on('connection', (ws) => {
             msg: 'Вы вышли из чата'
           }
         }))
+        wss.clients.forEach(function each(client) {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              action: 'sendData',
+              payload: {
+                users: usersOnline,
+                messages: messages
+              }
+            }))
+          }
+        })
       }
     }
   })
